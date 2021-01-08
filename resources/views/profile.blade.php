@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Profile')
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -36,7 +38,7 @@
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email', 'updateProfileInformation') is-invalid @enderror" name="email" value="{{ old('email') ?? Auth::user()->email }}" required autocomplete="email">
+                                <input id="email" type="email" class="form-control @error('email', 'updateProfileInformation') is-invalid @enderror" name="email" value="{{ old('email') ?? Auth::user()->email }}" required autocomplete="email" readonly="readonly">
 
                                 @error('email', 'updateProfileInformation')
                                     <span class="invalid-feedback" role="alert">
@@ -124,6 +126,44 @@
                 </div>
             </div>
         </div>
+        {{-- <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">{{ __('Profile Image') }}</div>
+                <div class="card-body">
+                    <div class="row justify-content-center text-center mb-3 px-5">
+                        <img id="file-image" src="#" alt="Preview" class="img-thumbnail">
+                    </div>
+                    <div class="row justify-content-center text-center">
+                          <form action="#" method="post" enctype="multipart/form-data">
+                            @csrf
+                            <div class="form-group">
+                                <input type="file" class="form-control-file d-none" name="avatar" id="avatarFile" aria-describedby="fileHelp" accept="image/*" onchange="readURL(this);">
+                                <label for="avatarFile">Upload</label>
+                                <small id="fileHelp" class="form-text text-muted">Please upload a valid image file. Size of image should not be more than 2MB.</small>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Upload Profile</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div> --}}
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script type="text/javascript">
+    function readURL(input, id) {
+     id = id || '#file-image';
+     if (input.files && input.files[0]) {
+         var reader = new FileReader();
+
+         reader.onload = function (e) {
+             $(id).attr('src', e.target.result);
+         };
+
+         reader.readAsDataURL(input.files[0]);
+     }
+  }
+</script>
+@endpush
